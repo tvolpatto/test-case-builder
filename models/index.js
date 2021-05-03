@@ -2,24 +2,24 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const marketSchema = new Schema({
-  id: { type: String, required: true }
+  code: { type: String, required: true }
   name: { type: String, required: true }
 });
 
-const mainSchema = new Schema({
+const groupSchema = new Schema({
   name: { type: String, required: true },
+  market_id: { type: Schema.Types.ObjectId, ref: "Market" } ,
 });
 
 const caseSchema = new Schema({
   description: { type: String, required: true },
-  main_id: { type: Schema.Types.ObjectId, ref: "Main" },
+  group_id: { type: Schema.Types.ObjectId, ref: "Group" },
 
 });
 
 const workflowSchema = new Schema({
   number: { type: String, required: true },
-  market_id: { type: Schema.Types.ObjectId, ref: "Market" } ,
-  main_id: { type: Schema.Types.ObjectId, ref: "Main" },
+  group_id: { type: Schema.Types.ObjectId, ref: "Group" },
 
 });
 
@@ -33,10 +33,10 @@ const testResultsSchema = new Schema({
 
 
 const Market = mongoose.model("Market", marketSchema);
-const Main = mongoose.model("Main", mainSchema);
+const Group = mongoose.model("Group", mainSchema);
 const Case = mongoose.model("Case", caseSchema);
 const Workflow = mongoose.model("Workflow", caseSchema);
 const TestResults = mongoose.model("TestResult", testResultsSchema);
 
 
-module.exports = { Market, Main, Case, Workflow, TestResults };
+module.exports = { Market, Group, Case, Workflow, TestResults };
